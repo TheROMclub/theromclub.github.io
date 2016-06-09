@@ -1,0 +1,75 @@
+<!doctype html>
+<html class="db w-100 h-100">
+<head>
+<title>The ROM Club</title>
+<link rel="stylesheet" href="http://npmcdn.com/tachyons@4.0.0-beta.12/css/tachyons.min.css">
+</head>
+<body class="sans-serif dt w-100 h-100 bg-black bg-cv white" style="background-image: url('bg.jpg')">
+<section class="center tc pa3 ph5-ns dtc v-mid">
+	<div class="w-100 fl">
+		<a href="/" class="f2 f1-l f3-xl link white bg-black-80 pa4 pv5-ns dim db">
+			<span class="db f-headline fw6 ttu tracked">The ROM Club</span>
+			<span class="db measure center lh-copy f5 fw4"><span id="js-blurb"></span></pan>
+		</a>
+	</div>
+</section>
+<style type="text/css">
+#js-blurb {
+	opacity: 0;
+	-webkit-transition: opacity 0.4s ease-in;
+	-moz-transition: opacity 0.4s ease-in;
+	-ms-transition: opacity 0.4s ease-in;
+	-o-transition: opacity 0.4s ease-in;
+	transition: opacity 0.4s ease-in;
+}
+#js-blurb.load {
+	opacity: 1;
+}
+</style>
+<script type="text/javascript">
+var bI = 0;
+var transitionEvent = whichTransitionEvent();
+var blurb = [
+	"A new forum for Android enthusiasts",
+	"Lets make Android great again!"
+];
+/* From Modernizr */
+function whichTransitionEvent(){
+	var t;
+	var el = document.createElement('fakeelement');
+	var transitions = {
+		'transition':'transitionend',
+		'OTransition':'oTransitionEnd',
+		'MozTransition':'transitionend',
+		'WebkitTransition':'webkitTransitionEnd'
+	}
+
+	for(t in transitions){
+		if(el.style[t] !== undefined){
+			return transitions[t];
+		}
+	}
+}
+function setBlurb() {
+	var b = document.getElementById('js-blurb');
+	if(bI == blurb.length){
+		bI = 0;
+	}
+	b.innerHTML = blurb[bI];
+	// do fadein (500)
+	setTimeout(function(){
+		b.style.opacity = 1;
+	}, 500);
+	setTimeout(function() {
+		// do fade out (500)
+		setTimeout(function(){
+			b.style.opacity = 0;
+			setTimeout(setBlurb, 500);
+		}, 500);
+	}, 2500);
+ 	bI++;
+}
+window.onload = setBlurb;
+</script>
+</body>
+</html>
